@@ -6,7 +6,7 @@ package app.pixel.jsnake.object;
  */
 public class Mob extends Sprite {
 
-	protected float runSpeed = 50.0f;
+	protected float runSpeed = 3.0f;
 	
 	public float startPosX = 0;
 	public float startPosY = 0;
