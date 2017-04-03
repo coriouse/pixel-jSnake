@@ -22,6 +22,7 @@ public class Game {
 	public static void startGame() {
 		Arena.currentArena = new Arena();
 		Arena.currentArena.addSprite(new Snake(0, 0, 20,20));
+		
 	}
 
 	public static void quit() {

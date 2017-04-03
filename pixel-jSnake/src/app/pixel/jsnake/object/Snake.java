@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import com.sun.glass.events.KeyEvent;
+
+import app.pixe.jsnake.arena.Arena;
 import app.pixel.jsnake.graphic.Render;
+import app.pixel.jsnake.input.Direction;
 import app.pixel.jsnake.input.Input;
 
 public class Snake extends Mob {
@@ -24,22 +27,45 @@ public class Snake extends Mob {
 		float moveY = 0;
 
 		if (Input.getKey(KeyEvent.VK_LEFT)) {
-			moveX -= runSpeed;
+			direction = Direction.LEFT;
 		}
 		if (Input.getKey(KeyEvent.VK_RIGHT)) {
-			moveX += runSpeed;
+			direction = Direction.RIGHT;
+
 		}
 
 		if (Input.getKey(KeyEvent.VK_UP)) {
-			moveY -= runSpeed;
+			direction = Direction.UP;
 		}
 
 		if (Input.getKey(KeyEvent.VK_DOWN)) {
-			moveY += runSpeed;
+			direction = Direction.DOWN;
 		}
 
-		posX += moveX;
-		posY += moveY;
+		// TODO only fo testing
+		if (Input.getKey(KeyEvent.VK_SPACE)) {
+			Arena.currentArena.addSprite(new Tail(posX + 20, posY, this));
+
+		}
+
+		switch (direction) {
+		case LEFT:
+			moveX -= runSpeed;
+			break;
+		case RIGHT:
+			moveX += runSpeed;
+			break;
+		case UP:
+			moveY -= runSpeed;
+			break;
+		case DOWN:
+			moveY += runSpeed;
+			break;
+
+		}
+
+		posX += moveX * deltaTime;
+		posY += moveY * deltaTime;
 
 		if (posX > borderWidth) {
 			posX = -borderWidth;
