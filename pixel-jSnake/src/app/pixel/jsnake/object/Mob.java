@@ -12,6 +12,8 @@ public class Mob extends Sprite {
 	protected Direction direction = Direction.LEFT;
 
 	protected float runSpeed = 60.0f;
+	
+	public int order;
 
 	public float startPosX = 0;
 	public float startPosY = 0;

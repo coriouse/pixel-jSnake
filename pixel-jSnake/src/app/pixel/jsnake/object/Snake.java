@@ -44,8 +44,31 @@ public class Snake extends Mob {
 
 		// TODO only fo testing
 		if (Input.getKey(KeyEvent.VK_SPACE)) {
-			Arena.currentArena.addSprite(new Tail(posX + 20, posY, this));
-
+			
+			System.out.println("press");
+			
+			int count = 0;
+			Mob tail = null;
+			for (Sprite sprite : Arena.currentArena.spites) {
+				if (sprite instanceof Tail) {
+					System.out.println(sprite);
+					count++;
+					tail = (Mob) sprite;					
+				}
+			}
+			
+			System.out.println("tail="+tail);
+			
+			if(count == 0) {
+				Tail t0 = new Tail(posX, posY, (Mob)this, 1);			
+				Arena.currentArena.addSprite(t0);	
+				return;
+			} else {
+				Tail t0 = new Tail(posX, posY, tail, tail.order+count);			
+				Arena.currentArena.addSprite(t0);
+				return;
+				
+			}
 		}
 
 		switch (direction) {
