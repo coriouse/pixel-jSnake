@@ -5,12 +5,13 @@ import java.awt.Graphics;
 
 import com.sun.glass.events.KeyEvent;
 
-import app.pixe.jsnake.arena.Arena;
 import app.pixel.jsnake.graphic.Render;
 import app.pixel.jsnake.input.Direction;
 import app.pixel.jsnake.input.Input;
 
 public class Snake extends Mob {
+
+	private int add = 0;
 
 	public Snake(float posX, float posY, float width, float height) {
 		super(posX, posY);
@@ -44,31 +45,9 @@ public class Snake extends Mob {
 
 		// TODO only fo testing
 		if (Input.getKey(KeyEvent.VK_SPACE)) {
-			
+
 			System.out.println("press");
-			
-			int count = 0;
-			Mob tail = null;
-			for (Sprite sprite : Arena.currentArena.spites) {
-				if (sprite instanceof Tail) {
-					System.out.println(sprite);
-					count++;
-					tail = (Mob) sprite;					
-				}
-			}
-			
-			System.out.println("tail="+tail);
-			
-			if(count == 0) {
-				Tail t0 = new Tail(posX, posY, (Mob)this, 1);			
-				Arena.currentArena.addSprite(t0);	
-				return;
-			} else {
-				Tail t0 = new Tail(posX, posY, tail, tail.order+count);			
-				Arena.currentArena.addSprite(t0);
-				return;
-				
-			}
+			add++;
 		}
 
 		switch (direction) {
@@ -108,6 +87,29 @@ public class Snake extends Mob {
 		g.setColor(new Color(110, 70, 40));
 		g.fillRect((int) (posX - width / 2) + Render.gameWidth / 2, (int) (posY - height / 2) + Render.gameHeight / 2,
 				(int) width, (int) height);
+
+		for (int i = 0; i < add; i++) {
+			int tailX = ((int) (posX - width / 2) + Render.gameWidth / 2);
+			int tailY = ((int) (posY - height / 2) + Render.gameHeight / 2);
+
+			switch (direction) {
+			case LEFT:
+				tailX = tailX + 5 + i;
+				break;
+			case RIGHT:
+
+				break;
+			case UP:
+
+				break;
+			case DOWN:				
+				tailY = tailY + 5 + i;
+				break;
+			}
+			
+
+			g.fillRect(tailX, tailY, (int) width, (int) height);
+		}
 
 	}
 
