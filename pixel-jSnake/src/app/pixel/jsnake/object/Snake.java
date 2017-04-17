@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import com.sun.glass.events.KeyEvent;
 
+import app.pixe.jsnake.arena.Arena;
 import app.pixel.jsnake.graphic.Render;
 import app.pixel.jsnake.input.Direction;
 import app.pixel.jsnake.input.Input;
@@ -12,6 +13,8 @@ import app.pixel.jsnake.input.Input;
 public class Snake extends Mob {
 
 	private int add = 0;
+
+	public float time = 0;
 
 	public Snake(float posX, float posY, float width, float height) {
 		super(posX, posY);
@@ -21,6 +24,8 @@ public class Snake extends Mob {
 
 	public void update(float deltaTime) {
 
+		this.time = deltaTime;
+
 		float borderWidth = (Render.gameWidth / 2);
 		float borderHeight = (Render.gameHeight / 2);
 
@@ -29,23 +34,40 @@ public class Snake extends Mob {
 
 		if (Input.getKey(KeyEvent.VK_LEFT)) {
 			direction = Direction.LEFT;
+			startPosX = posX;
+			startPosY = posY;
+
 		}
 		if (Input.getKey(KeyEvent.VK_RIGHT)) {
 			direction = Direction.RIGHT;
+			startPosX = posX;
+			startPosY = posY;
 
 		}
 
 		if (Input.getKey(KeyEvent.VK_UP)) {
 			direction = Direction.UP;
+			startPosX = posX;
+			startPosY = posY;
 		}
 
 		if (Input.getKey(KeyEvent.VK_DOWN)) {
 			direction = Direction.DOWN;
+			startPosX = posX;
+			startPosY = posY;
+
 		}
 
 		// TODO only fo testing
 		if (Input.getKey(KeyEvent.VK_SPACE)) {
-
+			Arena.currentArena.addSprite(new Tail(posX + 20, posY, this, 1));
+			Arena.currentArena.addSprite(new Tail(posX + 40, posY, this, 2));
+			Arena.currentArena.addSprite(new Tail(posX + 60, posY, this, 3));
+			Arena.currentArena.addSprite(new Tail(posX + 80, posY, this, 4));
+			Arena.currentArena.addSprite(new Tail(posX + 100, posY, this, 5));
+			Arena.currentArena.addSprite(new Tail(posX + 120, posY, this, 6));
+			Arena.currentArena.addSprite(new Tail(posX + 140, posY, this, 7));
+			Arena.currentArena.addSprite(new Tail(posX + 160, posY, this, 8));
 			System.out.println("press");
 			add++;
 		}
@@ -87,29 +109,6 @@ public class Snake extends Mob {
 		g.setColor(new Color(110, 70, 40));
 		g.fillRect((int) (posX - width / 2) + Render.gameWidth / 2, (int) (posY - height / 2) + Render.gameHeight / 2,
 				(int) width, (int) height);
-
-		for (int i = 0; i < add; i++) {
-			int tailX = ((int) (posX - width / 2) + Render.gameWidth / 2);
-			int tailY = ((int) (posY - height / 2) + Render.gameHeight / 2);
-
-			switch (direction) {
-			case LEFT:
-				tailX = tailX + 5 + i;
-				break;
-			case RIGHT:
-
-				break;
-			case UP:
-
-				break;
-			case DOWN:				
-				tailY = tailY + 5 + i;
-				break;
-			}
-			
-
-			g.fillRect(tailX, tailY, (int) width, (int) height);
-		}
 
 	}
 

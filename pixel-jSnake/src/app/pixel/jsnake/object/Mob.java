@@ -13,6 +13,8 @@ public class Mob extends Sprite {
 
 	protected float runSpeed = 60.0f;
 	
+	public float time = 0;
+	
 	public int order;
 
 	public float startPosX = 0;
