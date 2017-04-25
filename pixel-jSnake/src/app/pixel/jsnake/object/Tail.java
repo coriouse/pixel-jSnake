@@ -2,12 +2,11 @@ package app.pixel.jsnake.object;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
-import com.sun.glass.events.KeyEvent;
+import java.util.Arrays;
+import java.util.Map;
 
 import app.pixel.jsnake.graphic.Render;
 import app.pixel.jsnake.input.Direction;
-import app.pixel.jsnake.input.Input;
 
 public class Tail extends Mob {
 
@@ -24,51 +23,82 @@ public class Tail extends Mob {
 
 	int count = 0;
 
-	public void update(float deltaTime) {
+	Map<Direction, Float[]> step = null;
 
-		if (posX < this.mob.startPosX && this.mob.direction == Direction.DOWN) {
+	int index = 0;
+	public void update(float deltaTime) {
+	
+		if (step == null && !this.mob.steps.isEmpty()) {
+			
+			if(this.mob.steps.size()-1 == index)
+				step = this.mob.steps.get(index);
+				
+			//System.out.println("Step="+step+ ", order=" + this.order+", step size="+this.mob.steps.size()+", steps="+Arrays.toString(this.mob.steps.toArray()));
+			
+		}
+
+		if (step != null && step.containsKey(Direction.DOWN) && posX < step.get(Direction.DOWN)[0]) {
 			direction = Direction.DOWN;
 			count++;
 			if (count == 1) {
-				posX = this.mob.startPosX;
-				posY = this.mob.startPosY;
+				posX = step.get(Direction.DOWN)[0];
+				posY = step.get(Direction.DOWN)[1];			
+				step = null;
+				index++;
+					
+				System.out.println("tails=" + mob.tails + ", order=" + this.order+", direction = DOWN, posX="+posX+", posY="+posY+", index="+index);
+			
 			}
 			count = 0;
 		}
 
-		if (Math.abs(posY) > Math.abs(this.mob.startPosY) && this.mob.direction == Direction.LEFT) {
+		if (step != null && step.containsKey(Direction.LEFT) &&  Math.abs(posY) > Math.abs(step.get(Direction.LEFT)[1])) {
 			direction = Direction.LEFT;
 			count++;
 			if (count == 1) {
-				posX = this.mob.startPosX;
-				posY = this.mob.startPosY;
+				posX = step.get(Direction.LEFT)[0];
+				posY = step.get(Direction.LEFT)[1];	
+				step = null;
+				index++;
+			
+				
+				System.out.println("tails=" + mob.tails + ", order=" + this.order+", direction = LEFT, posX="+posX+", posY="+posY);
 			}
 			count = 0;
-
 		}
-
-		if (posX < this.mob.startPosX && this.mob.direction == Direction.UP) {
+		
+		if (step != null && step.containsKey(Direction.UP) &&  Math.abs(posX) < Math.abs(step.get(Direction.UP)[0])) {
 			direction = Direction.UP;
 			count++;
 			if (count == 1) {
-				posX = this.mob.startPosX;
-				posY = this.mob.startPosY;
+				posX = step.get(Direction.UP)[0];
+				posY = step.get(Direction.UP)[1];	
+				step = null;
+				index++;
+			
+				
+				System.out.println("tails=" + mob.tails + ", order=" + this.order+", direction = UP, posX="+posX+", posY="+posY);
 			}
 			count = 0;
-
 		}
-
-		if (Math.abs(posY) > Math.abs(this.mob.startPosY) && this.mob.direction == Direction.RIGHT) {
+		
+		
+		if (step != null && step.containsKey(Direction.RIGHT) &&  Math.abs(posY) > Math.abs(step.get(Direction.RIGHT)[1])) {
 			direction = Direction.RIGHT;
 			count++;
 			if (count == 1) {
-				posX = this.mob.startPosX;
-				posY = this.mob.startPosY;
+				posX = step.get(Direction.RIGHT)[0];
+				posY = step.get(Direction.RIGHT)[1];	
+				step = null;
+				index++;
+			
+				
+				System.out.println("tails=" + mob.tails + ", order=" + this.order+", direction = RIGHT, posX="+posX+", posY="+posY);
 			}
 			count = 0;
 		}
 		
-		
+
 		float borderWidth = (Render.gameWidth / 2);
 		float borderHeight = (Render.gameHeight / 2);
 
@@ -106,7 +136,7 @@ public class Tail extends Mob {
 		} else if (posY < 0 && Math.abs(posY) > borderHeight) {
 			posY = borderHeight;
 		}
-		
+
 	}
 
 	public void render(Graphics g) {

@@ -2,6 +2,9 @@ package app.pixel.jsnake.object;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.sun.glass.events.KeyEvent;
 
@@ -10,18 +13,25 @@ import app.pixel.jsnake.graphic.Render;
 import app.pixel.jsnake.input.Direction;
 import app.pixel.jsnake.input.Input;
 
-public class Snake extends Mob {
-
-	private int add = 0;
+public class Snake extends Mob {	
 
 	public float time = 0;
+	
+	
 
 	public Snake(float posX, float posY, float width, float height) {
 		super(posX, posY);
 		this.width = width;
 		this.height = height;
-	}
+	} 
 
+	private Map<Direction, Float[]> addStep(Direction direction, float posX, float posY) {
+		 Map<Direction, Float[]> step = new HashMap<>();
+		 step.put(direction, new Float[] {posX, posY, 0f});
+		 return step;
+	}
+	
+	int count = 0;
 	public void update(float deltaTime) {
 
 		this.time = deltaTime;
@@ -32,45 +42,63 @@ public class Snake extends Mob {
 		float moveX = 0;
 		float moveY = 0;
 
-		if (Input.getKey(KeyEvent.VK_LEFT)) {
+		if (Input.getKeyUp(KeyEvent.VK_LEFT)) {
+			System.out.println("LEFT KEY");
 			direction = Direction.LEFT;
 			startPosX = posX;
-			startPosY = posY;
+			startPosY = posY;	
+			steps.add(addStep(Direction.LEFT, startPosX, startPosY));	
 
 		}
-		if (Input.getKey(KeyEvent.VK_RIGHT)) {
+		if (Input.getKeyUp(KeyEvent.VK_RIGHT)) {
 			direction = Direction.RIGHT;
 			startPosX = posX;
 			startPosY = posY;
+			steps.add(addStep(Direction.RIGHT, posX, posY));
 
 		}
 
-		if (Input.getKey(KeyEvent.VK_UP)) {
+		if (Input.getKeyUp(KeyEvent.VK_UP)) {
 			direction = Direction.UP;
 			startPosX = posX;
 			startPosY = posY;
+			steps.add(addStep(Direction.UP, startPosX, startPosY));
 		}
 
-		if (Input.getKey(KeyEvent.VK_DOWN)) {
+		if (Input.getKeyUp(KeyEvent.VK_DOWN)) {
 			direction = Direction.DOWN;
 			startPosX = posX;
 			startPosY = posY;
-
+			steps.add(addStep( Direction.DOWN, startPosX, startPosY));
 		}
 
 		// TODO only fo testing
-		if (Input.getKey(KeyEvent.VK_SPACE)) {
+		if (Input.getKeyUp(KeyEvent.VK_SPACE)) {
+	
 			Arena.currentArena.addSprite(new Tail(posX + 20, posY, this, 1));
 			Arena.currentArena.addSprite(new Tail(posX + 40, posY, this, 2));
 			Arena.currentArena.addSprite(new Tail(posX + 60, posY, this, 3));
 			Arena.currentArena.addSprite(new Tail(posX + 80, posY, this, 4));
 			Arena.currentArena.addSprite(new Tail(posX + 100, posY, this, 5));
+			this.tails = 5;			
+	
+			
+			//
+		/*	
+			
+			
 			Arena.currentArena.addSprite(new Tail(posX + 120, posY, this, 6));
 			Arena.currentArena.addSprite(new Tail(posX + 140, posY, this, 7));
-			Arena.currentArena.addSprite(new Tail(posX + 160, posY, this, 8));
-			System.out.println("press");
-			add++;
+			Arena.currentArena.addSprite(new Tail(posX + 160, posY, this, 8));*/
+					
+		
 		}
+		
+		
+		
+			
+		
+		
 
 		switch (direction) {
 		case LEFT:
