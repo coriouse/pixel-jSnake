@@ -13,25 +13,24 @@ import app.pixel.jsnake.graphic.Render;
 import app.pixel.jsnake.input.Direction;
 import app.pixel.jsnake.input.Input;
 
-public class Snake extends Mob {	
+public class Snake extends Mob {
 
 	public float time = 0;
-	
-	
 
 	public Snake(float posX, float posY, float width, float height) {
 		super(posX, posY);
 		this.width = width;
 		this.height = height;
-	} 
+	}
 
 	private Map<Direction, Float[]> addStep(Direction direction, float posX, float posY) {
-		 Map<Direction, Float[]> step = new HashMap<>();
-		 step.put(direction, new Float[] {posX, posY, 0f});
-		 return step;
+		Map<Direction, Float[]> step = new HashMap<>();
+		step.put(direction, new Float[] { posX, posY, 0f });
+		return step;
 	}
-	
+
 	int count = 0;
+
 	public void update(float deltaTime) {
 
 		this.time = deltaTime;
@@ -46,8 +45,8 @@ public class Snake extends Mob {
 			System.out.println("LEFT KEY");
 			direction = Direction.LEFT;
 			startPosX = posX;
-			startPosY = posY;	
-			steps.add(addStep(Direction.LEFT, startPosX, startPosY));	
+			startPosY = posY;
+			steps.add(addStep(Direction.LEFT, startPosX, startPosY));
 
 		}
 		if (Input.getKeyUp(KeyEvent.VK_RIGHT)) {
@@ -66,39 +65,24 @@ public class Snake extends Mob {
 		}
 
 		if (Input.getKeyUp(KeyEvent.VK_DOWN)) {
+			System.out.println("DOWN KEY");
 			direction = Direction.DOWN;
 			startPosX = posX;
 			startPosY = posY;
-			steps.add(addStep( Direction.DOWN, startPosX, startPosY));
+			steps.add(addStep(Direction.DOWN, startPosX, startPosY));
 		}
 
 		// TODO only fo testing
 		if (Input.getKeyUp(KeyEvent.VK_SPACE)) {
-	
+
 			Arena.currentArena.addSprite(new Tail(posX + 20, posY, this, 1));
 			Arena.currentArena.addSprite(new Tail(posX + 40, posY, this, 2));
 			Arena.currentArena.addSprite(new Tail(posX + 60, posY, this, 3));
 			Arena.currentArena.addSprite(new Tail(posX + 80, posY, this, 4));
 			Arena.currentArena.addSprite(new Tail(posX + 100, posY, this, 5));
-			this.tails = 5;			
-	
-			
-			//
-		/*	
-			
-			
-			Arena.currentArena.addSprite(new Tail(posX + 120, posY, this, 6));
-			Arena.currentArena.addSprite(new Tail(posX + 140, posY, this, 7));
-			Arena.currentArena.addSprite(new Tail(posX + 160, posY, this, 8));*/
-					
-		
+			this.tails = 5;
+
 		}
-		
-		
-		
-			
-		
-		
 
 		switch (direction) {
 		case LEFT:

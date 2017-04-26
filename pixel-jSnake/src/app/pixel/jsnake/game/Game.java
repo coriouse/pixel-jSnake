@@ -21,7 +21,7 @@ public class Game {
 
 	public static void startGame() {
 		Arena.currentArena = new Arena();
-		Arena.currentArena.addSprite(new Snake(0, 0, 20,20));
+		Arena.currentArena.addSprite(new Snake(0, 0, 25,25));
 		
 	}
 

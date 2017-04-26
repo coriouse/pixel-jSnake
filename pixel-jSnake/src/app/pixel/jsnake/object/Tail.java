@@ -25,79 +25,48 @@ public class Tail extends Mob {
 
 	Map<Direction, Float[]> step = null;
 
-	int index = 0;
-	public void update(float deltaTime) {
-	
+	private void turnOf(Map<Direction, Float[]> step) {
 		if (step == null && !this.mob.steps.isEmpty()) {
-			
-			if(this.mob.steps.size()-1 == index)
+			if (this.mob.steps.size() - 1 == index) {
 				step = this.mob.steps.get(index);
-				
-			//System.out.println("Step="+step+ ", order=" + this.order+", step size="+this.mob.steps.size()+", steps="+Arrays.toString(this.mob.steps.toArray()));
-			
+				System.out.println("Step=" + step + ", order=" + this.order + ", index=" + index + ", step size="
+						+ this.mob.steps.size() + ", steps=" + Arrays.toString(this.mob.steps.toArray()));
+			}
 		}
+		if (step != null && step.containsKey(step.entrySet().iterator().next().getKey()) && isAllowTurn(step)) {
+			direction = step.entrySet().iterator().next().getKey();
+			count++;
+			if (count == 1) {
+				posX = step.get(step.entrySet().iterator().next().getKey())[0];
+				posY = step.get(step.entrySet().iterator().next().getKey())[1];
+				step = null;
+				index++;
+			}
+			count = 0;
+		}
+	}
 
-		if (step != null && step.containsKey(Direction.DOWN) && posX < step.get(Direction.DOWN)[0]) {
-			direction = Direction.DOWN;
-			count++;
-			if (count == 1) {
-				posX = step.get(Direction.DOWN)[0];
-				posY = step.get(Direction.DOWN)[1];			
-				step = null;
-				index++;
-					
-				System.out.println("tails=" + mob.tails + ", order=" + this.order+", direction = DOWN, posX="+posX+", posY="+posY+", index="+index);
-			
-			}
-			count = 0;
+	private boolean isAllowTurn(Map<Direction, Float[]> step) {
+		Direction direction = step.entrySet().iterator().next().getKey();
+		switch (direction) {
+		case DOWN:
+			return ((int) posX < Math.round(step.get(direction)[0]));
+		case LEFT:
+			return Math.abs((int) posY) >= Math.abs(Math.round(step.get(direction)[1]));
+		case UP:
+			return Math.abs((int) posX) >= Math.abs(Math.round(step.get(direction)[0]));
+		case RIGHT:
+			return Math.abs((int) posY) >= Math.abs(Math.round(step.get(direction)[1]));
+		default:
+			return false;
 		}
+	}
 
-		if (step != null && step.containsKey(Direction.LEFT) &&  Math.abs(posY) > Math.abs(step.get(Direction.LEFT)[1])) {
-			direction = Direction.LEFT;
-			count++;
-			if (count == 1) {
-				posX = step.get(Direction.LEFT)[0];
-				posY = step.get(Direction.LEFT)[1];	
-				step = null;
-				index++;
-			
-				
-				System.out.println("tails=" + mob.tails + ", order=" + this.order+", direction = LEFT, posX="+posX+", posY="+posY);
-			}
-			count = 0;
-		}
-		
-		if (step != null && step.containsKey(Direction.UP) &&  Math.abs(posX) < Math.abs(step.get(Direction.UP)[0])) {
-			direction = Direction.UP;
-			count++;
-			if (count == 1) {
-				posX = step.get(Direction.UP)[0];
-				posY = step.get(Direction.UP)[1];	
-				step = null;
-				index++;
-			
-				
-				System.out.println("tails=" + mob.tails + ", order=" + this.order+", direction = UP, posX="+posX+", posY="+posY);
-			}
-			count = 0;
-		}
-		
-		
-		if (step != null && step.containsKey(Direction.RIGHT) &&  Math.abs(posY) > Math.abs(step.get(Direction.RIGHT)[1])) {
-			direction = Direction.RIGHT;
-			count++;
-			if (count == 1) {
-				posX = step.get(Direction.RIGHT)[0];
-				posY = step.get(Direction.RIGHT)[1];	
-				step = null;
-				index++;
-			
-				
-				System.out.println("tails=" + mob.tails + ", order=" + this.order+", direction = RIGHT, posX="+posX+", posY="+posY);
-			}
-			count = 0;
-		}
-		
+	int index = 0;
+
+	public void update(float deltaTime) {
+
+		turnOf(step);
 
 		float borderWidth = (Render.gameWidth / 2);
 		float borderHeight = (Render.gameHeight / 2);
