@@ -20,7 +20,7 @@ public class Food extends Sprite {
 	private long lengthOfLifeBall = System.currentTimeMillis();
 	private long awaitTime = 0;	
 
-	boolean isVisible = false;
+	public boolean isVisible = false;
 
 	long curentTime = 0;
 	long curentTimeAwait = 0;
@@ -42,12 +42,10 @@ public class Food extends Sprite {
 	private void showFood() {
 		if (lengthOfLifeBall > 0 && awaitTime == 0) {
 			curentTime = (System.currentTimeMillis() - lengthOfLifeBall) / 1000;
-			System.out.println("curentTime=" + curentTime);
 		}
 
 		if (awaitTime > 0 && lengthOfLifeBall == 0) {
 			curentTimeAwait = (System.currentTimeMillis() - awaitTime) / 1000;
-			System.out.println("curentTimeAwait=" + curentTimeAwait);
 		}
 
 		if (curentTime > liveTime) {
@@ -55,8 +53,6 @@ public class Food extends Sprite {
 			lengthOfLifeBall = 0;
 			awaitTime = System.currentTimeMillis();
 			isVisible = false;
-			System.out.println("Hide ball");
-
 		}
 
 		if (curentTimeAwait > liveTime) {
@@ -64,7 +60,6 @@ public class Food extends Sprite {
 			awaitTime = 0;
 			lengthOfLifeBall = System.currentTimeMillis();
 			isVisible = true;
-			System.out.println("Show ball");
 			posX = getPosRandom();
 			posY = getPosRandom();
 		}
@@ -73,6 +68,10 @@ public class Food extends Sprite {
 	private int getPosRandom() {
 		Random random = new Random();
 		return -250+random.nextInt(250);
+	}
+	
+	public void hide() {
+		isVisible = false;
 	}
 	
 

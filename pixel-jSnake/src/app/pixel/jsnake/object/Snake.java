@@ -33,7 +33,6 @@ public class Snake extends Mob {
 		float moveY = 0;
 
 		if (Input.getKeyUp(KeyEvent.VK_LEFT) && direction != Direction.RIGHT) {
-			System.out.println("LEFT KEY");
 			direction = Direction.LEFT;
 			startPosX = posX;
 			startPosY = posY;
@@ -62,11 +61,23 @@ public class Snake extends Mob {
 			startPosY = posY;
 			addPos(startPosX, startPosY);
 		}
+		
+		Sprite[] sprites = getColliders(posX, posY);
+		if (sprites.length > 0) {
+			for (Sprite sprite : sprites) {
+				if (sprite instanceof Food) {
+				lengthen(posX + (lengthShake * 30), posY);
+				((Food) sprite).isVisible = false;
+				Score.SCORE += steps.size();
+				continue;
+				}
+			}
+		}
+		
 
 		// TODO only fo testing
-		if (Input.getKeyUp(KeyEvent.VK_SPACE)) {
-			++lengthShake;
-			addStep(posX + (lengthShake * 20), posY);
+		if (Input.getKeyUp(KeyEvent.VK_SPACE)) {			
+			lengthen(posX + (lengthShake * 30), posY);
 		}
 
 		switch (direction) {
@@ -102,6 +113,11 @@ public class Snake extends Mob {
 		}
 
 	}
+	
+	
+	private void cycleDead(int posX, int posY) {
+		//TODO need to finish		
+	}
 
 	public void render(Graphics g) {
 		g.setColor(new Color(110, 70, 40));
@@ -117,15 +133,16 @@ public class Snake extends Mob {
 	}
 
 	public void addPos(float posX, float posY) {
-		shiftArrRight(new Float[] { posX, posY, 0f });
+		shift(new Float[] { posX, posY, 0f });
 	}
 
-	public void addStep(float posX, float posY) {
+	public void lengthen(float posX, float posY) {
+		++lengthShake;
 		steps.add(new Float[] { posX, posY, 0f });
 
 	}
 
-	public void shiftArrRight(Float[] step) {
+	public void shift(Float[] step) {
 		Float[] temp = null;
 		for (int i = 0; i < lengthShake; i++) {
 			temp = steps.get(i);
