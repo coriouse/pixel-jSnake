@@ -13,20 +13,16 @@ import app.pixel.jsnake.object.Snake;
 public class Game {
 
 	public static void main(String[] args) {
-		Render.init();
-	
+		Render.init();	
 		startGame();
-
 	}
 
 	public static void startGame() {
 		Arena.currentArena = new Arena();
-		Arena.currentArena.addSprite(new Snake(0, 0, 25,25));
-		
+		Arena.currentArena.addSprite(new Snake(0, 0, 25,25));		
 	}
 
 	public static void quit() {
 		System.exit(1);
 	}
-
 }

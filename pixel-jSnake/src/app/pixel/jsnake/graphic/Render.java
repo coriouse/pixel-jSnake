@@ -47,7 +47,7 @@ public class Render {
 	private static int currentFPS = 0;
 	private static int totalFrames = 0;
 
-	private static int targetFPS = 60;
+	private static int targetFPS = 10;
 	private static int targetTime = 1000000000 / targetFPS;
 
 	public static float camX = 0;

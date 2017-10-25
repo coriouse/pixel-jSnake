@@ -10,7 +10,7 @@ import app.pixe.jsnake.arena.Arena;
  * @author Sergei_Ogarkov
  *
  */
-public class Sprite {
+abstract public class Sprite {
 
 	public float posX = 0;
 	public float posY = 0;
