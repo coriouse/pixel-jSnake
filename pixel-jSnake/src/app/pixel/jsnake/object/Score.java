@@ -20,13 +20,19 @@ public class Score extends Sprite {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void update(float deltaTime) {
-		//
-	}
-
+	
+	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.red);
 		g.drawString("Score: " + SCORE, (int) (posX - width / 2) + Render.gameWidth / 2, (int) (posY - height / 2) + Render.gameHeight / 2);
+	}
+
+
+
+	@Override
+	public void update(float deltaTime) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

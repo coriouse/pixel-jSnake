@@ -7,7 +7,7 @@ import app.pixel.jsnake.input.Direction;
  * @author Sergei_Ogarkov
  *
  */
-public class Mob extends Sprite {
+public abstract class Mob extends Sprite {
 	
 	//direction by default
 	protected Direction direction = Direction.LEFT;

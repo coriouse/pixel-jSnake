@@ -22,8 +22,9 @@ public class Game {
 	public static void startGame() {
 		Arena.currentArena = new Arena();
 		Arena.currentArena.addSprite(new Snake(0, 0, 25, 25));
-		Arena.currentArena.addSprite(new Food(40, 0, 7));
+		Arena.currentArena.addSprite(new Food(60, 0, 7));
 		Arena.currentArena.addSprite(new Food(-40, 0, 8));
+		Arena.currentArena.addSprite(new Food(0, 40, 5));
 		Arena.currentArena.addSprite(new Score(-270, 225));
 	}
 

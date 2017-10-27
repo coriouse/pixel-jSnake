@@ -6,6 +6,11 @@ import java.util.Random;
 
 import app.pixel.jsnake.graphic.Render;
 
+/**
+ * 
+ * @author Sergei_Ogarkov
+ *
+ */
 public class Food extends Sprite {
 
 	private float radius = 15f;
@@ -25,10 +30,12 @@ public class Food extends Sprite {
 	long curentTime = 0;
 	long curentTimeAwait = 0;
 
+	@Override
 	public void update(float deltaTime) {
 		showFood();
 	}
-
+	
+	@Override
 	public void render(Graphics g) {
 		if (isVisible) {
 			g.setColor(Color.green);

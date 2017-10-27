@@ -11,6 +11,11 @@ import app.pixel.jsnake.graphic.Render;
 import app.pixel.jsnake.input.Direction;
 import app.pixel.jsnake.input.Input;
 
+/**
+ * 
+ * @author Sergei_Ogarkov
+ *
+ */
 public class Snake extends Mob {
 
 	public int lengthShake = 0;
@@ -23,7 +28,8 @@ public class Snake extends Mob {
 		this.height = height;
 		addPos(posX, posY);
 	}
-
+	
+	@Override
 	public void update(float deltaTime) {
 
 		float borderWidth = (Render.gameWidth / 2);
@@ -115,10 +121,8 @@ public class Snake extends Mob {
 	}
 	
 	
-	private void cycleDead(int posX, int posY) {
-		//TODO need to finish		
-	}
 
+	@Override
 	public void render(Graphics g) {
 		g.setColor(new Color(110, 70, 40));
 		if (lengthShake > 0) {
@@ -132,17 +136,17 @@ public class Snake extends Mob {
 		}
 	}
 
-	public void addPos(float posX, float posY) {
+	private void addPos(float posX, float posY) {
 		shift(new Float[] { posX, posY, 0f });
 	}
 
-	public void lengthen(float posX, float posY) {
+	private void lengthen(float posX, float posY) {
 		++lengthShake;
 		steps.add(new Float[] { posX, posY, 0f });
 
 	}
 
-	public void shift(Float[] step) {
+	private void shift(Float[] step) {
 		Float[] temp = null;
 		for (int i = 0; i < lengthShake; i++) {
 			temp = steps.get(i);
@@ -150,5 +154,11 @@ public class Snake extends Mob {
 			step = temp;
 		}
 	}
+	
+	@SuppressWarnings("unused")
+	private void cycleDead(int posX, int posY) {
+		//TODO need to finish		
+	}
+
 
 }

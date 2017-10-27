@@ -27,13 +27,9 @@ abstract public class Sprite {
 		this.posY = posY;
 	}
 
-	public void update(float deltaTime) {
-		//
-	}
+	public abstract void update(float deltaTime);
 
-	public void render(Graphics g) {
-		//
-	}
+	public abstract void render(Graphics g);
 
 	protected boolean doesCollide(float x, float y) {
 
