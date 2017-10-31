@@ -10,6 +10,10 @@ import com.sun.glass.events.KeyEvent;
 import app.pixel.jsnake.graphic.Render;
 import app.pixel.jsnake.input.Direction;
 import app.pixel.jsnake.input.Input;
+import app.pixel.jsnake.levels.LevelExecuter;
+import app.pixel.jsnake.levels.LevelFactory;
+import app.pixel.jsnake.levels.LevelName;
+import app.pixel.jsnake.levels.LevelStore;
 
 /**
  * 
@@ -82,8 +86,14 @@ public class Snake extends Mob {
 		
 
 		// TODO only fo testing
-		if (Input.getKeyUp(KeyEvent.VK_SPACE)) {			
+		/*if (Input.getKeyUp(KeyEvent.VK_SPACE)) {			
 			lengthen(posX + (lengthShake * 30), posY);
+		}*/
+		
+		if (Input.getKeyUp(KeyEvent.VK_ESCAPE)) {
+			LevelFactory executeLevel = new LevelStore();
+			LevelExecuter levelExecuter = executeLevel.getLevel(LevelName.MENU);
+			levelExecuter.execute();
 		}
 
 		switch (direction) {

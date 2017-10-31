@@ -3,7 +3,7 @@ package app.pixel.jsnake.object;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import app.pixe.jsnake.arena.Arena;
+import app.pixel.jsnake.arena.Arena;
 
 /**
  * Sprite, main class

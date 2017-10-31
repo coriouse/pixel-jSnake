@@ -18,7 +18,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import app.pixe.jsnake.arena.Arena;
+import app.pixel.jsnake.arena.Arena;
 import app.pixel.jsnake.game.Game;
 import app.pixel.jsnake.input.Input;
 /**

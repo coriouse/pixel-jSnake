@@ -1,4 +1,4 @@
-package app.pixe.jsnake.arena;
+package app.pixel.jsnake.arena;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
