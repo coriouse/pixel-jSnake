@@ -55,23 +55,23 @@ public class Menu extends Sprite {
 				backGroundPosY = itemPosition[currentItemElement];
 			}
 		}
-		
+
 		if (Input.getKeyUp(KeyEvent.VK_ENTER)) {
 			System.out.println(currentItemElement);
-			
-			switch(currentItemElement) {
-				case 0:
-					LevelFactory executeLevel = new LevelStore();
-					LevelExecuter levelExecuter = executeLevel.getLevel(LevelName.LEVEL1);
-					levelExecuter.execute();
-					break;
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					System.exit(1);
-					break;
+			LevelFactory executeLevel = new LevelStore();
+			switch (currentItemElement) {
+			case 0:
+				executeLevel.getLevel(LevelName.LEVEL1).execute();
+
+				break;
+			case 1:
+				executeLevel.getLevel(LevelName.LEVEL2).execute();
+				break;
+			case 2:
+				break;
+			case 3:
+				System.exit(1);
+				break;
 			}
 		}
 
